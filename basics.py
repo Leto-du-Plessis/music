@@ -4,62 +4,19 @@ import numpy as np
 #from multipledispatch import dispatch
 import sounds
 
-def piano(*args):
+def linear_filter(length, target):
+    x = np.linspace(0, 1, int(length * (target[1] - target[0])))
+    x = np.flip(x)
+    return x
 
-    if len(args) == 1 and type(args[0]) == int:    # more argument types to be considered later
-        frequency = 2 ** ((args[0] - 49)/12) * 440
+# note = sounds.piano_note("A4")
+# wave1 = sounds.wave(note.get_frequency(), 100, 10)
 
-    return frequency
+# tune = sounds.tune(wave1)
+# tune.apply_volume_filter(linear_filter, [0.25, 1])
+# tune.produce_waveform()
+# tune.write_to_wav()
 
-wave1 = sounds.wave(piano(40), 100, 0.2)
-wave2 = sounds.wave(piano(44), 100, 0.2)
-wave3 = sounds.wave(piano(45), 100, 0.4)
-wave45 = sounds.wave(100, 0, 0.05)
-wave4 = sounds.wave(piano(45), 100, 0.4)
-wave5 = sounds.wave(piano(45), 100, 0.2)
-wave6 = sounds.wave(piano(47), 100, 0.2)
-wave7 = sounds.wave(piano(49), 100, 0.4)
-wave75 = sounds.wave(100, 0, 0.05)
-wave8 = sounds.wave(piano(49), 100, 0.4)
-wave85 = sounds.wave(100, 0, 0.05)
-wave9 = sounds.wave(piano(49), 100, 0.2)
-wave10 = sounds.wave(piano(51), 100, 0.2)
-wave11 = sounds.wave(piano(47), 100, 0.4)
-wave115 = sounds.wave(100, 0, 0.05)
-wave12 = sounds.wave(piano(47), 100, 0.4)
-wave13 = sounds.wave(piano(45), 100, 0.2)
-wave14 = sounds.wave(piano(44), 100, 0.2)
-wave145 = sounds.wave(100, 0, 0.05)
-wave15 = sounds.wave(piano(44), 100, 0.2)
-wave16 = sounds.wave(piano(45), 100, 0.2)
-wave17 = sounds.wave(piano(40), 100, 0.8)
-tune = sounds.tune(wave1, wave2, wave3, wave4, wave45, wave5, wave6, wave7, wave75, wave8, wave85, wave9, wave10, wave11, wave115, wave12, wave13, wave14, wave145, wave15, wave16, wave17)
+sequence = sounds.piano_sequence("B4 G#4 E4 G#4 B4 G#4 B4 E4 B4 G#4 B4 E4")
+tune = sequence.compile_wave(100, 152, "minim")
 tune.write_to_wav()
-
-#wave = obj.construct_wave()
-
-# @dispatch(object, object)
-# def generate_sine_wave(frequency, duration, amplitude = 4096, sample_rate = 44100):
-#     t = np.linspace(0, duration, int(sample_rate * duration)) # discretized time interval
-#     wave = amplitude * np.sin(2 * np.pi * frequency * t)      # generates our sine wave over the time interval constructed
-#     return wave
-
-# @dispatch(object, object, int)
-# def generate_sine_wave(frequency, duration, amplitude, sample_rate = 44100):
-#     t = np.linspace(0, duration, int(sample_rate * duration)) # discretized time interval
-#     wave = amplitude * np.sin(2 * np.pi * frequency * t)      # generates our sine wave over the time interval constructed
-#     return wave
-
-# @dispatch(object, object, object)
-# def generate_sine_wave(frequency, duration, amplitude, sample_rate = 44100):
-#     print('stonks')
-
-# def varying_amplitude(function, duration):
-#     print('stonks')
-
-# def write_to_wav(waves, file_name = "generic.wav", rate = 44100, wav_type = np.int16):
-#     wavfile.write(file_name, rate, data = waves.astype(wav_type)) 
-
-#wave = generate_sine_wave(440, 5, amplitude = 'five')
-#write_to_wav(wave, "generic2.wav")
-#wavfile.write("test.wav", rate = 44100, data = sine_wave.astype(np.int16))
